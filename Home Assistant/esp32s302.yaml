@@ -1,0 +1,434 @@
+esp32s302:
+  objects:
+    - obj: "p0b31"
+      properties:
+        "opacity": >
+          {% if has_value('binary_sensor.warnung_temperatur') %}
+            {{ 255 if states('binary_sensor.warnung_temperatur')|bool else 0 }}
+          {% endif %}
+    - obj: "p0b32"
+      properties:
+        "opacity": >
+          {% if has_value('binary_sensor.warnung_feuchtigkeit') %}
+            {{ 255 if states('binary_sensor.warnung_feuchtigkeit')|bool else 0 }}
+          {% endif %}
+    - obj: "p0b84"
+      properties:
+        "opacity": >
+          {% if is_state('number.esp32s302_page_number', '6') %}
+            {{ 255 if is_state('binary_sensor.int0000003_ch1_window_state', 'off') else 0 }}
+          {% else %}
+            {{ 0 }}
+          {% endif %}
+    - obj: "p0b85"
+      properties:
+        "opacity": >
+          {% if is_state('number.esp32s302_page_number', '6') %}
+            {{ 255 if is_state('binary_sensor.int0000003_ch1_window_state', 'on') else 0 }}
+          {% else %}
+            {{ 0 }}
+          {% endif %}
+    - obj: "p1b30"
+      properties:
+        "text": >
+          {% if has_value('sensor.int0000001_ch1_actual_temperature') %}
+            {% set temp = states('sensor.int0000001_ch1_actual_temperature')|float %}
+            {{ '#FF0029 {:.1f}'.format(temp) if temp < 17 else '#F0FFFF {:.1f}'.format(temp) }}
+          {% endif %}
+    - obj: "p1b31"
+      properties:
+        "text": >
+          {% if has_value('sensor.temperatur_schlafzimmer_mittelwert') %}
+            {% set temp = states('sensor.temperatur_schlafzimmer_mittelwert')|float %}
+            {{ '#FF0029 {:.1f}'.format(temp) if temp < 17 else '#F0FFFF {:.1f}'.format(temp) }}
+          {% endif %}
+    - obj: "p1b32"
+      properties:
+        "text": >
+          {% if has_value('sensor.int0000002_ch1_actual_temperature') %}
+            {% set temp = states('sensor.int0000002_ch1_actual_temperature')|float %}
+            {{ '#FF0029 {:.1f}'.format(temp) if temp < 17 else '#F0FFFF {:.1f}'.format(temp) }}
+          {% endif %}
+    - obj: "p1b33"
+      properties:
+        "text": >
+          {% if has_value('sensor.00399f29a595ca_ch1_actual_temperature') %}
+            {% set temp = states('sensor.00399f29a595ca_ch1_actual_temperature')|float %}
+            {{ '#FF0029 {:.1f}'.format(temp) if temp < 17 else '#F0FFFF {:.1f}'.format(temp) }}
+          {% endif %}
+    - obj: "p1b34"
+      properties:
+        "text": >
+          {% if has_value('sensor.feuchtigkeit_wohnzimmer_mittelwert') %}
+            {% set hum = states('sensor.feuchtigkeit_wohnzimmer_mittelwert')|float %}
+            {{ '#FF0029 {:.1f}'.format(hum) if hum > 65 else '#F0FFFF {:.1f}'.format(hum) }}
+          {% endif %}
+    - obj: "p1b35"
+      properties:
+        "text": >
+          {% if has_value('sensor.feuchtigkeit_schlafzimmer_mittelwert') %}
+            {% set hum = states('sensor.feuchtigkeit_schlafzimmer_mittelwert')|float %}
+            {{ '#FF0029 {:.1f}'.format(hum) if hum > 65 else '#F0FFFF {:.1f}'.format(hum) }}
+          {% endif %}
+    - obj: "p1b36"
+      properties:
+        "text": >
+          {% if has_value('sensor.int0000002_ch1_humidity') %}
+            {% set hum = states('sensor.int0000002_ch1_humidity')|float %}
+            {{ '#FF0029 {:.1f}'.format(hum) if hum > 65 else '#F0FFFF {:.1f}'.format(hum) }}
+          {% endif %}
+
+    - obj: "p1b50"
+      properties:
+        "val": >
+          {% if has_value('sensor.0010dbe98ced07_ch1_actual_temperature') %}
+            {% set tempwzo = states('sensor.0010dbe98ced07_ch1_actual_temperature')|float %}
+            {{ tempwzo * -1 if tempwzo < 0 else 0 }}
+          {% endif %}
+        "line_color": >
+          {% if has_value('sensor.0010dbe98ced07_ch1_actual_temperature') %}
+            {{ 'azure' if states('sensor.0010dbe98ced07_ch1_actual_temperature')|float < -10 else 'blue' }}
+          {% endif %}
+    - obj: "p1b51"
+      properties:
+        "val": >
+          {% if has_value('sensor.0010dbe98ced07_ch1_actual_temperature') %}
+            {% set tempwzo = states('sensor.0010dbe98ced07_ch1_actual_temperature')|float %}
+            {{ tempwzo if tempwzo > 0 else 0 }}
+          {% endif %}
+        "value_str": >
+          {% if has_value('sensor.0010dbe98ced07_ch1_actual_temperature') %}
+            {{ '{:.1f}'.format(states('sensor.0010dbe98ced07_ch1_actual_temperature')|float) }}°C
+          {% endif %}
+        "line_color10": >
+          {% if has_value('sensor.0010dbe98ced07_ch1_actual_temperature') %}
+            {% set tempwzo = states('sensor.0010dbe98ced07_ch1_actual_temperature')|float %}
+            {% if tempwzo < 7 %}
+              {{ 65477 }}
+            {% elif tempwzo < 15 %}
+              {{ 63013 }}
+            {% elif tempwzo < 20 %}
+              {{ 60516 }}
+            {% elif tempwzo < 30 %}
+              {{ 60068 }}
+            {% else %}
+              {{ 51265 }}
+            {% endif %}
+          {% endif %}
+    - obj: "p1b52"
+      properties:
+        "val": >
+          {% if has_value('sensor.0010dd89b3ab79_ch1_actual_temperature') %}
+            {% set tempszo = states('sensor.0010dd89b3ab79_ch1_actual_temperature')|float %}
+            {{ tempszo * -1 if tempszo < 0 else 0 }}
+          {% endif %}
+        "line_color": >
+          {% if has_value('sensor.0010dd89b3ab79_ch1_actual_temperature') %}
+            {{ 'azure' if states('sensor.0010dd89b3ab79_ch1_actual_temperature')|float < -10 else 'blue' }}
+          {% endif %}
+    - obj: "p1b53"
+      properties:
+        "val": >
+          {% if has_value('sensor.0010dd89b3ab79_ch1_actual_temperature') %}
+            {% set tempszo = states('sensor.0010dd89b3ab79_ch1_actual_temperature')|float %}
+            {{ tempszo if tempszo > 0 else 0 }}"
+          {% endif %}
+        "value_str": >
+          {% if has_value('sensor.0010dd89b3ab79_ch1_actual_temperature') %}
+            {{ '{:.1f}'.format(states('sensor.0010dd89b3ab79_ch1_actual_temperature')|float) }}°C
+          {% endif %}
+        "line_color10": >
+          {% if has_value('sensor.0010dd89b3ab79_ch1_actual_temperature') %}
+            {% set tempszo = states('sensor.0010dd89b3ab79_ch1_actual_temperature')|float %}
+            {% if tempszo < 7 %}
+              {{ 65477 }}
+            {% elif tempszo < 15 %}
+              {{ 63013 }}
+            {% elif tempszo < 20 %}
+              {{ 60516 }}
+            {% elif tempszo < 30 %}
+              {{ 60068 }}
+            {% else %}
+              {{ 51265 }}
+            {% endif %}
+          {% endif %}
+    - obj: "p1b54"
+      properties:
+        "val": >
+          {% if has_value('sensor.0010dbe98ced07_ch1_humidity') %}
+            {{ states('sensor.0010dbe98ced07_ch1_humidity')|float }}
+          {% endif %}
+        "value_str": >
+          {% if has_value('sensor.0010dbe98ced07_ch1_humidity') %}
+            {{ '{:.1f}'.format(states('sensor.0010dbe98ced07_ch1_humidity')|float) }}%
+          {% endif %}
+        "line_color10": >
+          {% if has_value('sensor.0010dbe98ced07_ch1_humidity') %}
+            {% set humwzo = states('sensor.0010dbe98ced07_ch1_humidity')|float %}
+            {% if humwzo < 25 %}
+              {{ 46910 }}
+            {% elif humwzo < 50 %}
+              {{ 13532 }}
+            {% elif humwzo < 75 %}
+              {{ 11156 }}
+            {% else %}
+              {{ 6450 }}
+            {% endif %}
+          {% endif %}
+    - obj: "p1b55"
+      properties:
+        "val": >
+          {% if has_value('sensor.0010dd89b3ab79_ch1_humidity') %}
+            {{ states('sensor.0010dd89b3ab79_ch1_humidity')|float }}
+          {% endif %}
+        "value_str": >
+          {% if has_value('sensor.0010dd89b3ab79_ch1_humidity') %}
+            {{ '{:.1f}'.format(states('sensor.0010dd89b3ab79_ch1_humidity')|float) }}%
+          {% endif %}
+        "line_color10": >
+          {% if has_value('sensor.0010dd89b3ab79_ch1_humidity') %}
+            {% set humszo = states('sensor.0010dd89b3ab79_ch1_humidity')|float %}
+            {% if humszo < 25 %}
+              {{ 46910 }}
+            {% elif humszo < 50 %}
+              {{ 13532 }}
+            {% elif humszo < 75 %}
+              {{ 11156 }}
+            {% else %}
+              {{ 6450 }}
+            {% endif %}
+          {% endif %}
+
+
+    - obj: "p2b12"
+      properties:
+        "text": >
+          {% if has_value('sensor.0010dbe98ced07_ch1_actual_temperature') %}
+            {{ '{:.1f}'.format(states('sensor.0010dbe98ced07_ch1_actual_temperature')|float) }}°C
+          {% endif %}
+    - obj: "p2b13"
+      properties:
+        "text": >
+          {% if has_value('sensor.0010dbe98ced07_ch1_humidity') %}
+            {{ '{:.1f}'.format(states('sensor.0010dbe98ced07_ch1_humidity')|float) }}%
+          {% endif %}
+    - obj: "p2b15"
+      properties:
+        "text": >
+          {% if has_value('sensor.int0000001_ch1_actual_temperature') %}
+            {% set temp = states('sensor.int0000001_ch1_actual_temperature')|float %}
+            {{ '#FF0029 {:.1f}'.format(temp) if temp <= 16 else '#F0FFFF {:.1f}'.format(temp) }}°C
+          {% endif %}
+    - obj: "p2b16"
+      properties:
+        "text": >
+          {% if has_value('sensor.feuchtigkeit_wohnzimmer_mittelwert') %}
+            {% set hum = states('sensor.feuchtigkeit_wohnzimmer_mittelwert')|float %}
+            {{ '#FF0029 {:.1f}'.format(hum) if hum > 65 else '#F0FFFF {:.1f}'.format(hum) }}%
+          {% endif %}
+
+
+    - obj: "p3b12"
+      properties:
+        "text": >
+          {% if has_value('sensor.0010dd89b3ab79_ch1_actual_temperature') %}
+            {{ '{:.1f}'.format(states('sensor.0010dd89b3ab79_ch1_actual_temperature')|float) }}°C
+          {% endif %}
+    - obj: "p3b13"
+      properties:
+        "text": >
+          {% if has_value('sensor.0010dd89b3ab79_ch1_humidity') %}
+            {{ '{:.1f}'.format(states('sensor.0010dd89b3ab79_ch1_humidity')|float) }}%
+          {% endif %}
+    - obj: "p3b15"
+      properties:
+        "text": >
+          {% if has_value('sensor.temperatur_schlafzimmer_mittelwert') %}
+            {% set temp = states('sensor.temperatur_schlafzimmer_mittelwert')|float %}
+            {{ '#FF0029 {:.1f}'.format(temp) if temp <= 16 else '#F0FFFF {:.1f}'.format(temp) }}°C
+          {% endif %}
+    - obj: "p3b16"
+      properties:
+        "text": >
+          {% if has_value('sensor.feuchtigkeit_schlafzimmer_mittelwert') %}
+            {% set hum = states('sensor.feuchtigkeit_schlafzimmer_mittelwert')|float %}
+            {{ '#FF0029 {:.1f}'.format(hum) if hum > 65 else '#F0FFFF {:.1f}'.format(hum) }}%
+          {% endif %}
+
+
+    - obj: "p4b12"
+      properties:
+        "text": >
+          {% if has_value('sensor.003460c99c3242_ch1_actual_temperature') %}
+            {% set temp = states('sensor.003460c99c3242_ch1_actual_temperature')|float %}
+            {{ '#FF0029 {:.1f}'.format(temp) if temp <= 16 else '#F0FFFF {:.1f}'.format(temp) }}°C
+          {% endif %}
+    - obj: "p4b13"
+      properties:
+        "text": >
+          {% if has_value('sensor.003460c99c3242_ch1_humidity') %}
+            {% set hum = states('sensor.003460c99c3242_ch1_humidity')|float %}
+            {{ '#FF0029 {:.1f}'.format(hum) if hum > 65 else '#F0FFFF {:.1f}'.format(hum) }}%
+          {% endif %}
+
+
+    - obj: "p5b12"
+      properties:
+        "text": >
+          {% if has_value('sensor.000a98a9a38eac_ch1_actual_temperature') %}
+            {% set temp = states('sensor.000a98a9a38eac_ch1_actual_temperature')|float %}
+            {{ '#FF0029 {:.1f}'.format(temp) if temp <= 16 else '#F0FFFF {:.1f}'.format(temp) }}°C
+          {% endif %}
+
+
+    - obj: "p6b11"
+      properties:
+        "text": >
+          {% if has_value('sensor.002018a99c0663_ch1_level') %}
+            {{ states('sensor.002018a99c0663_ch1_level')|int }}%
+          {% endif %}
+    - obj: "p6b13"
+      properties:
+        "text": >
+          {% if has_value('sensor.002018a99751ba_ch1_level') %}
+            {{ states('sensor.002018a99751ba_ch1_level')|int }}%
+          {% endif %}
+    - obj: "p6b15"
+      properties:
+        "text": >
+          {% if has_value('sensor.00201be9a53def_ch1_level') %}
+            {{ states('sensor.00201be9a53def_ch1_level')|int }}%
+          {% endif %}
+    - obj: "p6b17"
+      properties:
+        "text": >
+          {% if has_value('sensor.00399f29a4e526_ch1_level') %}
+            {{ states('sensor.00399f29a4e526_ch1_level')|int }}%
+          {% endif %}
+    - obj: "p6b19"
+      properties:
+        "text": >
+          {% if has_value('sensor.00399f29a595ca_ch1_level') %}
+            {{ states('sensor.00399f29a595ca_ch1_level')|int }}%
+          {% endif %}
+
+
+    - obj: "p7b41"
+      properties:
+        "text": >
+          {% if has_value('sensor.int0000001_ch1_actual_temperature') %}
+            {% set temp = states('sensor.int0000001_ch1_actual_temperature')|float %}
+            {{ '#FF0029 {:.1f}'.format(temp) if temp < 17 else '#F0FFFF {:.1f}'.format(temp) }}
+          {% endif %}
+    - obj: "p7b42"
+      properties:
+        "text": >
+          {% if has_value('sensor.temperatur_schlafzimmer_mittelwert') %}
+            {% set temp = states('sensor.temperatur_schlafzimmer_mittelwert')|float %}
+            {{ '#FF0029 {:.1f}'.format(temp) if temp < 17 else '#F0FFFF {:.1f}'.format(temp) }}
+          {% endif %}
+    - obj: "p7b43"
+      properties:
+        "text": >
+          {% if has_value('sensor.003460c99c3242_ch1_actual_temperature') %}
+            {% set temp = states('sensor.003460c99c3242_ch1_actual_temperature')|float %}
+            {{ '#FF0029 {:.1f}'.format(temp) if temp < 17 else '#F0FFFF {:.1f}'.format(temp) }}
+          {% endif %}
+    - obj: "p7b44"
+      properties:
+        "text": >
+          {% if has_value('sensor.leq0785759_ch4_actual_temperature') %}
+            {% set temp = states('sensor.leq0785759_ch4_actual_temperature')|float %}
+            {{ '#FF0029 {:.1f}'.format(temp) if temp < 17 else '#F0FFFF {:.1f}'.format(temp) }}
+          {% endif %}
+    - obj: "p7b45"
+      properties:
+        "text": >
+          {% if has_value('sensor.0010dbe98ced07_ch1_actual_temperature') %}
+            {{ '{:.1f}'.format(states('sensor.0010dbe98ced07_ch1_actual_temperature')|float) }}
+          {% endif %}
+    - obj: "p7b46"
+      properties:
+        "text": >
+          {% if has_value('sensor.0010dd89b3ab79_ch1_actual_temperature') %}
+            {{ '{:.1f}'.format(states('sensor.0010dd89b3ab79_ch1_actual_temperature')|float) }}
+          {% endif %}
+    - obj: "p7b47"
+      properties:
+        "text": >
+          {% if has_value('sensor.feuchtigkeit_wohnzimmer_mittelwert') %}
+            {% set hum = states('sensor.feuchtigkeit_wohnzimmer_mittelwert')|float %}
+            {{ '#FF0029 {:.1f}'.format(hum) if hum > 65 else '#F0FFFF {:.1f}'.format(hum) }}
+          {% endif %}
+    - obj: "p7b48"
+      properties:
+        "text": >
+          {% if has_value('sensor.feuchtigkeit_schlafzimmer_mittelwert') %}
+            {% set hum = states('sensor.feuchtigkeit_schlafzimmer_mittelwert')|float %}
+            {{ '#FF0029 {:.1f}'.format(hum) if hum > 65 else '#F0FFFF {:.1f}'.format(hum) }}
+          {% endif %}
+    - obj: "p7b49"
+      properties:
+        "text": >
+          {% if has_value('sensor.003460c99c3242_ch1_humidity') %}
+            {% set hum = states('sensor.003460c99c3242_ch1_humidity')|float %}
+            {{ '#FF0029 {:.1f}'.format(hum) if hum > 65 else '#F0FFFF {:.1f}'.format(hum) }}
+          {% endif %}
+    - obj: "p7b50"
+      properties:
+        "text": >
+          {% if has_value('sensor.0010dd89b3ab79_ch1_humidity') %}
+            {{ '{:.1f}'.format(states('sensor.0010dd89b3ab79_ch1_humidity')|float) }}
+          {% endif %}
+    - obj: "p7b51"
+      properties:
+        "text": >
+          {% if has_value('sensor.0010dbe98ced07_ch1_humidity') %}
+            {{ '{:.1f}'.format(states('sensor.0010dbe98ced07_ch1_humidity')|float) }}
+          {% endif %}
+    - obj: "p7b56"
+      properties:
+        "text": >
+          {% if has_value('sensor.esp32_01_lichtstrom') %}
+            {{ '{:.1f}'.format(states('sensor.esp32_01_lichtstrom')|float) }}
+          {% endif %}
+    - obj: "p7b58"
+      properties:
+        "text": >
+          {% if has_value('sensor.lichtstrom_wohnzimmer_avarage') %}
+            {{ '{:.1f}'.format(states('sensor.lichtstrom_wohnzimmer_avarage')|float) }}
+          {% endif %}
+    - obj: "p7b65"
+      properties:
+        "text": >
+          {% if has_value('sensor.002018a99c0663_ch1_level') %}
+            {{ states('sensor.002018a99c0663_ch1_level')|int }}
+          {% endif %}
+
+    - obj: "p7b66"
+      properties:
+        "text": >
+          {% if has_value('sensor.002018a99751ba_ch1_level') %}
+            {{ states('sensor.002018a99751ba_ch1_level')|int }}
+          {% endif %}
+
+    - obj: "p7b67"
+      properties:
+        "text": >
+          {% if has_value('sensor.00201be9a53def_ch1_level') %}
+            {{ states('sensor.00201be9a53def_ch1_level')|int }}
+          {% endif %}
+
+    - obj: "p7b68"
+      properties:
+        "text": >
+          {% if has_value('sensor.00399f29a4e526_ch1_level') %}
+            {{ states('sensor.00399f29a4e526_ch1_level')|int }}
+          {% endif %}
+
+    - obj: "p7b69"
+      properties:
+        "text": >
+          {% if has_value('sensor.00399f29a595ca_ch1_level') %}
+            {{ states('sensor.00399f29a595ca_ch1_level')|int }}
+          {% endif %}
