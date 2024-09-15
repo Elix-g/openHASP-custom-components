@@ -1,0 +1,400 @@
+- sensor:
+    availability:
+      topic: hasp/esp32s302/LWT
+      payload_available: online
+      payload_not_available: offline
+    device:
+      connections: [['mac', '74:4d:bd:9d:94:34']]
+      configuration_url: http://esp32s3-02.privnet.xmas
+      identifiers:
+      - 744dbd9d9434
+      manufacturer: openHASP
+      model: Elecrow WZ8048C070
+      name: esp32s302
+      sw_version: 0.7.0-rc12
+      suggested_area: Wohnzimmer
+      via_device: openhasp.esp32s302
+    device_class: illuminance
+    icon: mdi:brightness-4
+    name: Lichtstrom
+    object_id: esp32s302_lichtstrom
+    state_topic: hasp/esp32s302/state/illuminance
+    suggested_display_precision: 1
+    unique_id: esp32s302_lichtstrom
+    unit_of_measurement: lx
+    value_template: "{{ value_json.bh1750|float }}"
+
+- binary_sensor:
+    availability:
+      topic: hasp/esp32s302/LWT
+      payload_available: online
+      payload_not_available: offline
+    device:
+      identifiers:
+      - 744dbd9d9434
+    device_class: running
+    entity_category: diagnostic
+    name: Status
+    object_id: esp32s302_status
+    state_topic: hasp/esp32s302/LWT
+    payload_on: online
+    payload_off: offline
+    unique_id: esp32s302_status
+
+- sensor:
+    availability:
+      topic: hasp/esp32s302/LWT
+      payload_available: online
+      payload_not_available: offline
+    device:
+      identifiers:
+      - 744dbd9d9434
+    entity_category: diagnostic
+    icon: mdi:brightness-percent
+    name: Backlight Raw
+    object_id: esp32s302_backlight_raw
+    state_topic: hasp/esp32s302/state/backlightinfo
+    suggested_display_precision: 0
+    unique_id: esp32s302_backlight_raw
+    value_template: "{{ value_json.raw|int }}"
+
+- sensor:
+    availability:
+      topic: hasp/esp32s302/LWT
+      payload_available: online
+      payload_not_available: offline
+    device:
+      identifiers:
+      - 744dbd9d9434
+    entity_category: diagnostic
+    icon: mdi:brightness-percent
+    name: Backlight Level
+    object_id: esp32s302_backlight_level
+    state_topic: hasp/esp32s302/state/backlightinfo
+    suggested_display_precision: 0
+    unique_id: esp32s302_backlight_level
+    unit_of_measurement: '%'
+    value_template: '{{ value_json.level|int }}'
+
+- switch:
+    availability:
+      topic: hasp/esp32s302/LWT
+      payload_available: online
+      payload_not_available: offline
+    device:
+      identifiers:
+      - 744dbd9d9434
+    command_topic: hasp/esp32s302/commandcustom/autobacklight
+    device_class: switch
+    name: Auto Backlight
+    object_id: esp32s302_auto_backlight
+    optimistic: true
+    payload_off: 0
+    payload_on: 1
+    retain: true
+    state_topic: hasp/esp32s302/state/backlightinfo
+    unique_id: esp32s302_auto_backlight
+    value_template: '{{ value_json.auto|int }}'
+
+- sensor:
+    availability:
+      topic: hasp/esp32s302/LWT
+      payload_available: online
+      payload_not_available: offline
+    device:
+      identifiers:
+      - 744dbd9d9434
+    entity_category: diagnostic
+    icon: mdi:ip-network
+    name: IP
+    object_id: esp32s302_ip
+    state_topic: hasp/esp32s302/state/statusupdate
+    unique_id: esp32s302_ip
+    value_template: '{{ value_json.ip }}'
+
+- sensor:
+    availability:
+      topic: hasp/esp32s302/LWT
+      payload_available: online
+      payload_not_available: offline
+    device:
+      identifiers:
+      - 744dbd9d9434
+    entity_category: diagnostic
+    icon: mdi:chip
+    name: MAC
+    object_id: esp32s302_mac
+    state_topic: hasp/esp32s302/state/statusupdate
+    unique_id: esp32s302_mac
+    value_template: '{{ value_json.mac }}'
+
+- sensor:
+    availability:
+      topic: hasp/esp32s302/LWT
+      payload_available: online
+      payload_not_available: offline
+    device:
+      identifiers:
+      - 744dbd9d9434
+    entity_category: diagnostic
+    icon: mdi:wifi-settings
+    name: SSID
+    object_id: esp32s302_ssid
+    state_topic: hasp/esp32s302/state/statusupdate
+    unique_id: esp32s302_ssid
+    value_template: '{{ value_json.ssid }}'
+
+- sensor:
+    availability:
+      topic: hasp/esp32s302/LWT
+      payload_available: online
+      payload_not_available: offline
+    device:
+      identifiers:
+      - 744dbd9d9434
+    device_class: signal_strength
+    entity_category: diagnostic
+    icon: mdi:access-point
+    name: Wifi RSSI
+    object_id: esp32s302_wifi_rssi
+    state_topic: hasp/esp32s302/state/statusupdate
+    suggested_display_precision: 0
+    unique_id: esp32s302_wifi_rssi
+    unit_of_measurement: dBm
+    value_template: '{{ int(value_json.rssi, 0) }}'
+
+- sensor:
+    availability:
+      topic: hasp/esp32s302/LWT
+      payload_available: online
+      payload_not_available: offline
+    device:
+      identifiers:
+      - 744dbd9d9434
+    device_class: data_size
+    entity_category: diagnostic
+    icon: mdi:memory
+    name: Free Heap
+    object_id: esp32s302_free_heap
+    state_topic: hasp/esp32s302/state/statusupdate
+    suggested_display_precision: 2
+    unit_of_measurement: kB
+    unique_id: esp32s302_free_heap
+    value_template: "{{ (value_json['heapFree']|float / 1024.0)|float|round(2) }}"
+
+- sensor:
+    availability:
+      topic: hasp/esp32s302/LWT
+      payload_available: online
+      payload_not_available: offline
+    device:
+      identifiers:
+      - 744dbd9d9434
+    entity_category: diagnostic
+    icon: mdi:timer-star-outline
+    name: Uptime
+    object_id: esp32s302_uptime
+    state_topic: hasp/esp32s302/state/sensors
+    unique_id: esp32s302_uptime
+    value_template: >
+      {% set vals = (value_json.uptime|regex_replace(find='T', replace='d ')).split(':') %}
+      {{ vals[0] + 'h ' + vals[1] + 'm ' + vals[2] + 's' }}
+
+- sensor:
+    availability:
+      topic: hasp/esp32s302/LWT
+      payload_available: online
+      payload_not_available: offline
+    device:
+      identifiers:
+      - 744dbd9d9434
+    device_class: temperature
+    entity_category: diagnostic
+    icon: mdi:thermometer
+    name: Temperatur MCU
+    object_id: esp32s302_temperatur_mcu
+    state_topic: hasp/esp32s302/state/sensors
+    suggested_display_precision: 2
+    unique_id: esp32s302_temperatur_mcu
+    unit_of_measurement: °C
+    value_template: "{{ value_json['internal']['temperature']|float }}"
+
+- number:
+    availability:
+      topic: hasp/esp32s302/LWT
+      payload_available: online
+      payload_not_available: offline
+    device:
+      identifiers:
+      - 744dbd9d9434
+    command_topic: hasp/esp32s302/commandcustom/threshold1
+    entity_category: config
+    icon: mdi:numeric-1-circle
+    min: 0
+    max: 200
+    mode: box
+    name: Backlight Threshold 1
+    retain: true
+    state_topic: hasp/esp32s302/state/autobacklightthreshold
+    unique_id: esp32s302_backlight_threshold_1
+    value_template: "{{ value_json['t1']|int }}"
+
+- number:
+    availability:
+      topic: hasp/esp32s302/LWT
+      payload_available: online
+      payload_not_available: offline
+    device:
+      identifiers:
+      - 744dbd9d9434
+    command_topic: hasp/esp32s302/commandcustom/threshold2
+    entity_category: config
+    icon: mdi:numeric-2-circle
+    min: 0
+    max: 200
+    mode: box
+    name: Backlight Threshold 2
+    retain: true
+    state_topic: hasp/esp32s302/state/autobacklightthreshold
+    unique_id: esp32s302_backlight_threshold_2
+    value_template: "{{ value_json['t2']|int }}"
+
+- number:
+    availability:
+      topic: hasp/esp32s302/LWT
+      payload_available: online
+      payload_not_available: offline
+    device:
+      identifiers:
+      - 744dbd9d9434
+    command_topic: hasp/esp32s302/commandcustom/threshold3
+    entity_category: config
+    icon: mdi:numeric-3-circle
+    min: 0
+    max: 200
+    mode: box
+    name: Backlight Threshold 3
+    retain: true
+    state_topic: hasp/esp32s302/state/autobacklightthreshold
+    unique_id: esp32s302_backlight_threshold_3
+    value_template: "{{ value_json['t3']|int }}"
+
+- number:
+    availability:
+      topic: hasp/esp32s302/LWT
+      payload_available: online
+      payload_not_available: offline
+    device:
+      identifiers:
+      - 744dbd9d9434
+    command_topic: hasp/esp32s302/commandcustom/threshold4
+    entity_category: config
+    icon: mdi:numeric-4-circle
+    min: 0
+    max: 200
+    mode: box
+    name: Backlight Threshold 4
+    retain: true
+    state_topic: hasp/esp32s302/state/autobacklightthreshold
+    unique_id: esp32s302_backlight_threshold_4
+    value_template: "{{ value_json['t4']|int }}"
+
+- number:
+    availability:
+      topic: hasp/esp32s302/LWT
+      payload_available: online
+      payload_not_available: offline
+    device:
+      identifiers:
+      - 744dbd9d9434
+    command_topic: hasp/esp32s302/commandcustom/level1
+    entity_category: config
+    icon: mdi:numeric-1-circle
+    min: 0
+    max: 255
+    mode: box
+    name: Backlight Level 1
+    retain: true
+    state_topic: hasp/esp32s302/state/autobacklightlevel
+    unique_id: esp32s302_backlight_level_1
+    value_template: "{{ value_json['l1']|int }}"
+
+- number:
+    availability:
+      topic: hasp/esp32s302/LWT
+      payload_available: online
+      payload_not_available: offline
+    device:
+      identifiers:
+      - 744dbd9d9434
+    command_topic: hasp/esp32s302/commandcustom/level2
+    entity_category: config
+    icon: mdi:numeric-2-circle
+    min: 0
+    max: 255
+    mode: box
+    name: Backlight Level 2
+    retain: true
+    state_topic: hasp/esp32s302/state/autobacklightlevel
+    unique_id: esp32s302_backlight_level_2
+    value_template: "{{ value_json['l2']|int }}"
+
+- number:
+    availability:
+      topic: hasp/esp32s302/LWT
+      payload_available: online
+      payload_not_available: offline
+    device:
+      identifiers:
+      - 744dbd9d9434
+    command_topic: hasp/esp32s302/commandcustom/level3
+    entity_category: config
+    icon: mdi:numeric-3-circle
+    min: 0
+    max: 255
+    mode: box
+    name: Backlight Level 3
+    retain: true
+    state_topic: hasp/esp32s302/state/autobacklightlevel
+    unique_id: esp32s302_backlight_level_3
+    value_template: "{{ value_json['l3']|int }}"
+
+- number:
+    availability:
+      topic: hasp/esp32s302/LWT
+      payload_available: online
+      payload_not_available: offline
+    device:
+      identifiers:
+      - 744dbd9d9434
+    command_topic: hasp/esp32s302/commandcustom/level4
+    entity_category: config
+    icon: mdi:numeric-4-circle
+    min: 0
+    max: 255
+    mode: box
+    name: Backlight Level 4
+    retain: true
+    state_topic: hasp/esp32s302/state/autobacklightlevel
+    unique_id: esp32s302_backlight_level_4
+    value_template: "{{ value_json['l4']|int }}"
+
+- number:
+    availability:
+      topic: hasp/esp32s302/LWT
+      payload_available: online
+      payload_not_available: offline
+    device:
+      identifiers:
+      - 744dbd9d9434
+    command_topic: hasp/esp32s302/commandcustom/level5
+    entity_category: config
+    icon: mdi:numeric-5-circle
+    min: 0
+    max: 255
+    mode: box
+    name: Backlight Level 5
+    retain: true
+    state_topic: hasp/esp32s302/state/autobacklightlevel
+    unique_id: esp32s302_backlight_level_5
+    value_template: "{{ value_json['l5']|int }}"
